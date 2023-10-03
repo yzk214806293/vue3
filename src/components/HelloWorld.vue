@@ -22,7 +22,7 @@ export default {
   //   msg: String
   // },
   beforeCreate() {
-    console.log("1beforeCreate");
+    console.log("1 beforeCreate");
   },
   created(){
     console.log("2created");
