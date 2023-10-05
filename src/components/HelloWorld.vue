@@ -1,13 +1,16 @@
 <template>
   <div class="hello">
-    <div v-if="show" class="box"></div>
+    <!-- <div v-if="show" class="box"></div>
     {{ show }}
     <div @click="isShow">显示</div>
-    <div @click="isHide">隐藏</div>
+    <div @click="isHide">隐藏</div> -->
 
 
-    <div>{{ num }}</div>
-    <button @click="addNum">加1</button>
+    <!-- <div>{{ num }}</div>
+    <button @click="addNum">加1</button> -->
+    {{ arrs }}
+    <div @click="editr">更改</div>
+    <input type="text" v-model="inpur">
   </div>
 </template>
 
@@ -19,7 +22,7 @@
 //      const isShow = () => (show.value = true)
 //     return {show,isHide,isShow}
 //   }
-import { /* ref */ onMounted } from "vue";
+import {   ref,onMounted } from "vue";
 export default {
   name: 'HelloWorld',
   // props: {
@@ -58,6 +61,7 @@ export default {
     // 注 setup 优先级最高 最先执行的 然后上面正常执行顺序  例如同级的 mounted 优先执行 setup里面的onMounted 然后在执行mounted
     onMounted(() => {
       console.log('Component is mounted!')
+      // onart()
     })
     console.log("setup",props,context);
     // 单独的方法使用
@@ -70,12 +74,39 @@ export default {
     //return { show, isShow, isHide };
 
     // 不使用ref函数(这个不是响应式的 num有变化 但是dom上的num是不变的 因为不是响应式)
-    let num=1
-    function addNum(){
-      num++
-      console.log(num)
-    }
-    return {num,addNum}
+    // let num=1
+    // function addNum(){
+    //   num++
+    //   console.log(num)
+    // }
+    // return {num,addNum}
+
+    //使用ref函数 响应式的
+    // let num=ref(1),
+    //   addNum=()=>{
+    //       num.value++
+    //       console.log(num);
+    //   }
+    //   return {num,addNum}
+
+    //复杂数据类型 响应式
+
+    let arrs=ref([])
+    let inpur = ref('')
+    const arr = [{name:'小明',age:12},{name:'小刚',age:13}]
+      function onart(){
+          arr.forEach(element => {
+            arrs.value.push({...element,sex:'男'})
+          });
+      }
+   onart()
+   function editr() {
+    arrs.value[0].name ='哈哈哈'
+    inpur.value = '2222'
+    // console.log(arrs.value[0].name ='哈哈哈')
+
+  }
+   return {arrs,arr,editr,inpur}
   },
 }
 </script>
